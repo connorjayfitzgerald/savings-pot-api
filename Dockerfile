@@ -19,7 +19,7 @@ COPY *.json ./
 # Install dependencies
 RUN npm install && npm install -g typescript
 
-COPY src .
+COPY src src
 
 RUN tsc
 
