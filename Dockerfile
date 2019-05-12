@@ -14,7 +14,7 @@ FROM node:10.15.3 AS builder
 
 WORKDIR /tmp/build
 
-COPY *.json .
+COPY *.json ./
 
 # Install dependencies
 RUN npm install && npm install -g typescript
