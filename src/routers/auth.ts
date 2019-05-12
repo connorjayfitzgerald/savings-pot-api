@@ -18,13 +18,13 @@ const router = Router();
 const limiter = new rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // limit each IP to 100 requests per windowMs
-    message: {
-        errors: [
-            {
-                detail: 'Too many requests from this IP. Try again in 15 minutes',
-            },
-        ],
-    },
+    // message: { Need to fix the type definition
+    //     errors: [
+    //         {
+    //             detail: 'Too many requests from this IP. Try again in 15 minutes',
+    //         },
+    //     ],
+    // },
 });
 
 // =============== FILE DEFINITION ================
