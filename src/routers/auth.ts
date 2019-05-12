@@ -2,6 +2,7 @@
 
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator/check';
+import rateLimiter from 'express-rate-limit';
 
 // ================ CUSTOM MODULES ================
 
@@ -14,7 +15,21 @@ const base = '/auth';
 
 const router = Router();
 
+const limiter = new rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit each IP to 100 requests per windowMs
+    message: {
+        errors: [
+            {
+                detail: 'Too many requests from this IP. Try again in 15 minutes',
+            },
+        ],
+    },
+});
+
 // =============== FILE DEFINITION ================
+
+router.use(limiter);
 
 router.post(
     '/register',
@@ -34,7 +49,9 @@ router.post(
     checkValidation,
     async (req: Request, res: Response): Promise<Response> => {
         try {
-            const registerResult = await auth.register(req.body);
+            const { username, password, email } = req.body;
+
+            const registerResult = await auth.register({ username, password, email });
 
             return res.status(200).send({ data: registerResult });
         } catch (err) {

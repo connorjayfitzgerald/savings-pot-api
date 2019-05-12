@@ -2,6 +2,7 @@
 
 import express from 'express';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -23,7 +24,9 @@ if (!API_PORT) {
     throw new Error('API_PORT must be defined!');
 }
 
+app.enable('trust proxy');
 app.use(bodyParser.json());
+app.use(helmet());
 
 loadRouters(app);
 
