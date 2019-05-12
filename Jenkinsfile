@@ -13,4 +13,10 @@ node {
 
         app = docker.build("connorfitzgerald/savings-pot-api")
     }
+
+    stage('Push') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials') {
+            app.push("latest")
+        }
+    }
 }
