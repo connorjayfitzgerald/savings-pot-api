@@ -22,6 +22,6 @@ RUN npm install && npm install -g typescript
 
 COPY src .
 
-RUN tsconfig
+RUN tsc
 
 CMD ["node", "dist"]
