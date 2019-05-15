@@ -1,4 +1,4 @@
-- hosts: '{{ host }}'
+- hosts: webserver
   tasks:
     - name: Pull the new image
       docker_image:

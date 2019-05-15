@@ -27,8 +27,7 @@ node {
                 credentialsId: 'jenkins-priv-key',
                 colorized: true,
                 extraVars   : [
-                     ansible_python_interpreter: "/usr/bin/python3",
-                     host: "${env.HOST}"
+                     ansible_python_interpreter: "/usr/bin/python3"
                 ]
             )
         }
