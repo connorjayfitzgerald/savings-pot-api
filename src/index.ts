@@ -30,6 +30,8 @@ app.use(helmet());
 
 loadRouters(app);
 
+app.get('/', (req, res) => res.status(200).send('TESTING'));
+
 app.use((req, res) => res.redirect('http://connorfitzgerald.co.uk'));
 
 app.listen(API_PORT, (): void => logger.info(`Savings Pot API listening on port ${API_PORT}`));
