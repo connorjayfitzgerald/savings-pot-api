@@ -10,3 +10,7 @@
         image: connorfitzgerald/savings-pot-api:latest
         state: present
         force_update: true
+        env:
+          - "API_PORT=3000"
+        publish:
+          - 3000:3000
