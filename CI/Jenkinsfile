@@ -19,4 +19,18 @@ node {
             app.push("latest")
         }
     }
+
+    stage('Deploy') {
+        ansiColor('xterm') {
+            ansiblePlaybook(
+                playbook: 'CI/ansible-deploy.yaml',
+                credentialsId: 'jenkins-priv-key',
+                colorized: true,
+                extraVars   : [
+                     ansible_python_interpreter: "/usr/bin/python3",
+                     host: "${env.HOST}"
+                ]
+            )
+        }
+    }
 }

@@ -1,0 +1,18 @@
+- hosts: '{{ host }}'
+  tasks:
+    - name: Pull the new image
+      docker_image:
+        name: connorfitzgerald/savings-pot-api:latest
+    - name: Remove the running container
+      docker_container:
+        name: savings-pot-api
+        state: absent
+    - name: Start the new container
+      docker_container:
+        name: savings-pot-api
+        image: connorfitzgerald/savings-pot-api:latest
+        state: started
+        ports:
+          - 3000:3000
+        networks:
+          - name: nginx_net
