@@ -1,4 +1,5 @@
 - hosts: webserver
+  become: yes
   tasks:
     - name: Pull the new image
       docker_image:
