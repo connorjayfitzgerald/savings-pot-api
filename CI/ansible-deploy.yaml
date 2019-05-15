@@ -5,6 +5,8 @@
       docker_image:
         name: connorfitzgerald/savings-pot-api:latest
     - name: Recreate the Docker service
-      docker_service:
-        project_name: savings-pot-api
-        recreate: always
+      docker_swarm_service:
+        name: savings-pot-api
+        image: connorfitzgerald/savings-pot-api:latest
+        state: present
+        force_update: true
