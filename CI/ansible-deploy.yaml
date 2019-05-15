@@ -13,4 +13,4 @@
         env:
           - "API_PORT=3000"
         publish:
-          - 3000:3000
+          - "published_port=3000,target_port=3000"
