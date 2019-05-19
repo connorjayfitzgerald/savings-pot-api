@@ -1,50 +1,48 @@
 {
   "name": "savings-pot-api",
-  "version": "1.0.0",
-  "description": "API for the Savings Pot web application",
-  "main": "src/index.js",
+  "version": "0.0.1",
+  "description": "API for the Savings Pot application",
+  "main": "src/index.ts",
   "scripts": {
+    "preinstall": "npm install -g nodemon typescript eslint pino-pretty",
+    "build": "npm run lint && npm run clean && tsc",
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc",
+    "dev": "nodemon",
+    "lint": "eslint src/**/*.ts --fix",
     "prod": "npm run build && node dist",
-    "dev": "ts-node src"
+    "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CFitzgerald1995/savings-pot-api.git"
-  },
-  "author": "Connor Fitzgerald",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/CFitzgerald1995/savings-pot-api/issues"
-  },
-  "homepage": "https://github.com/CFitzgerald1995/savings-pot-api#readme",
+  "author": "Connor Fitzgerald <https://github.com/connorjayfitzgerald/>",
+  "license": "",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
-    "express-rate-limit": "^3.5.1",
     "express-validator": "^5.3.1",
-    "helmet": "^3.18.0",
-    "pino": "^5.12.3",
-    "pino-pretty": "^3.0.0"
+    "mysql2": "^1.6.5",
+    "oracledb": "^3.1.2",
+    "pino": "^5.12.4",
+    "pino-pretty": "^3.0.0",
+    "sequelize": "^5.8.6"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
-    "@types/express-rate-limit": "^3.3.0",
-    "@types/helmet": "0.0.43",
+    "@types/express-validator": "^3.0.0",
+    "@types/jest": "^24.0.13",
     "@types/pino": "^5.8.7",
-    "@typescript-eslint/eslint-plugin": "^1.8.0",
-    "@typescript-eslint/parser": "^1.8.0",
+    "@types/sequelize": "^4.28.1",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.0",
-    "prettier": "^1.17.0",
+    "prettier": "^1.17.1",
     "rimraf": "^2.6.3",
-    "ts-node": "^8.1.0",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
   }
 }

@@ -2,4 +2,6 @@
 
 dist
 
+docker-compose.yaml
+
 node_modules

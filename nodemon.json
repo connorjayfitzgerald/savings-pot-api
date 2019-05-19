@@ -1,6 +1,6 @@
 {
-    "exec": "ts-node src",
-    "ext": "*.ts",
-    "verbose": true,
-    "watch": "./src"
+    "watch": ["src"],
+    "ext": "ts",
+    "ignore": ["src/**/*.spec.ts"],
+    "exec": "ts-node ./src/index.ts | pino-pretty"
 }

@@ -1,29 +1,19 @@
-// ================= NODE MODULES =================
+// ------------------------------- NODE MODULES -------------------------------
 
 import pino from 'pino';
 
-// ================ CUSTOM MODULES ================
+// ------------------------------ CUSTOM MODULES ------------------------------
 
-// ================== VARIABLES ===================
+import { loggerConfig } from '../config';
 
-let { LOG_LEVEL } = process.env;
+// -------------------------------- VARIABLES ---------------------------------
 
-// =============== FILE DEFINITION ================
+// ----------------------------- FILE DEFINITION ------------------------------
 
-let logLevelDefined = true;
+const logger = pino(loggerConfig);
 
-if (!LOG_LEVEL) {
-    logLevelDefined = false;
-    LOG_LEVEL = 'debug';
-}
-
-const logger = pino({
-    level: LOG_LEVEL,
-    prettyPrint: true,
-});
-
-if (!logLevelDefined) {
-    logger.info(`LOG_LEVEL not defined. Defaulting to 'debug'`);
+if (!process.env.LOG_LEVEL) {
+    logger.info(`LOG_LEVEL not set. Defaulting to 'debug'`);
 }
 
 export default logger;

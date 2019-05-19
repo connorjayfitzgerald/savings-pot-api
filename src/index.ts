@@ -1,35 +1,35 @@
-// ================= NODE MODULES =================
+// ------------------------------- NODE MODULES -------------------------------
 
 import express from 'express';
 import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-// ================ CUSTOM MODULES ================
+// ------------------------------ CUSTOM MODULES ------------------------------
 
 import { logger } from './utils';
-import { loadRouters } from './routers';
+import { loadRouters } from './api/routers';
+import { appConfig } from './config';
+import sequelize from './models';
 
-// ================== VARIABLES ===================
+// -------------------------------- VARIABLES ---------------------------------
 
-const { API_PORT } = process.env;
+const { port } = appConfig;
 
-const app = express();
+// ----------------------------- FILE DEFINITION ------------------------------
 
-// =============== FILE DEFINITION ================
+const run = async (): Promise<void> => {
+    try {
+        await sequelize.sync();
 
-if (!API_PORT) {
-    throw new Error('API_PORT must be defined!');
-}
+        const app = express();
 
-app.enable('trust proxy');
-app.use(bodyParser.json());
-app.use(helmet());
+        app.use(bodyParser.json());
 
-loadRouters(app);
+        loadRouters(app);
 
-app.get('/*', (req, res) => res.redirect('http://connorfitzgerald.co.uk'));
+        app.listen(port, (): void => logger.info(`API listening on port ${port}`));
+    } catch (err) {
+        logger.error(err);
+    }
+};
 
-app.listen(API_PORT, (): void => logger.info(`Savings Pot API listening on port ${API_PORT}`));
+run();
