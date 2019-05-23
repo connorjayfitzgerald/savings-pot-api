@@ -6,7 +6,7 @@
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
-export { default as checkValidation } from './check-validation';
-export { default as handleError } from './error-handler';
+export * from './check-validation';
+export * from './error-handler';
 export * from './errors';
-export { default as logger } from './logger';
+export * from './logger';

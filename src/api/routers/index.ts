@@ -4,12 +4,12 @@ import { Express } from 'express';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
-import users from './users';
-import sessions from './sessions';
+import { usersRouter } from './users';
+import { sessionsRouter } from './sessions';
 
 // -------------------------------- VARIABLES ---------------------------------
 
-const routers = [users, sessions];
+const routers = [usersRouter, sessionsRouter];
 
 // ----------------------------- FILE DEFINITION ------------------------------
 

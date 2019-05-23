@@ -6,7 +6,7 @@ import { Sequelize } from 'sequelize';
 
 import { dbConfig } from '../config';
 
-import UserInit from './user';
+import { User } from './user';
 
 // -------------------------------- VARIABLES ---------------------------------
 
@@ -20,7 +20,7 @@ const sequelize = new Sequelize(name, user, password, {
     dialect: 'mysql',
 });
 
-export const UserModel = UserInit(sequelize);
+export const UserModel = User(sequelize);
 export { UserAttributes } from './user';
 
-export default sequelize;
+export { sequelize };

@@ -24,7 +24,7 @@ type User = typeof Model & {
     new (values?: object, options?: BuildOptions): UserAttributes;
 };
 
-export default (sequelize: Sequelize): User => {
+export const User = (sequelize: Sequelize): User => {
     const User = sequelize.define(
         'user',
         {

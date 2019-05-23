@@ -14,7 +14,7 @@ interface ErrorItem {
     detail: string;
 }
 
-export default (err: Error | CustomError, res: Response): Response => {
+export const handleError = (err: Error | CustomError, res: Response): Response => {
     let errors = [
         {
             detail: 'An error occurred whilst processing the request. Please try again later.',

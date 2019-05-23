@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import { logger } from './utils';
 import { loadRouters } from './api/routers';
 import { appConfig } from './config';
-import sequelize from './models';
+import { sequelize } from './models';
 
 // -------------------------------- VARIABLES ---------------------------------
 

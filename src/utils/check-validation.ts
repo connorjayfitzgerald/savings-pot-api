@@ -9,7 +9,7 @@ import { validationResult } from 'express-validator/check';
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
-export default (req: Request, res: Response, next: NextFunction): Response | void => {
+export const checkValidation = (req: Request, res: Response, next: NextFunction): Response | void => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

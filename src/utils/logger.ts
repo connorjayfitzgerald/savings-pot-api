@@ -16,4 +16,4 @@ if (!process.env.LOG_LEVEL) {
     logger.info(`LOG_LEVEL not set. Defaulting to 'debug'`);
 }
 
-export default logger;
+export { logger };

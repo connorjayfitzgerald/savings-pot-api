@@ -14,7 +14,7 @@ const base = '/users';
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
-export default (app: Express): Express => {
+export const usersRouter = (app: Express): Express => {
     const router = Router();
 
     app.use(base, router);
