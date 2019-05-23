@@ -1,6 +1,6 @@
 // ------------------------------- NODE MODULES -------------------------------
 
-import { Express } from 'express';
+import { Express, Request, Response } from 'express';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
@@ -15,6 +15,8 @@ const routers = [usersRouter, sessionsRouter];
 
 export const loadRouters = (app: Express): Express => {
     routers.forEach((router): Express => router(app));
+
+    app.get('/*', (req: Request, res: Response): void => res.redirect('https://connorfitzgerald.co.uk'));
 
     return app;
 };
