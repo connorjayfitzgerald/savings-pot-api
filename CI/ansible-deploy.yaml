@@ -14,9 +14,9 @@
         published_ports:
           - 3000:3000
         env:
-          - API_PORT: {{ sp_api_port }}
-          - DB_NAME: {{ sp_db_name }}
-          - DB_PASSWORD: {{ sp_db_password }}
-          - DB_USER: {{ sp_db_user }}
-          - DB_HOST: {{ sp_db_host }}
-          - DB_PORT: {{ sp_db_port }}
+          - API_PORT: "{{ sp_api_port }}"
+          - DB_NAME: "{{ sp_db_name }}"
+          - DB_PASSWORD: "{{ sp_db_password }}"
+          - DB_USER: "{{ sp_db_user }}"
+          - DB_HOST: "{{ sp_db_host }}"
+          - DB_PORT: "{{ sp_db_port }}"
