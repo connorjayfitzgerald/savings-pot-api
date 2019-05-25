@@ -15,7 +15,7 @@ node {
     }
 
     stage('Push') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-connorfitzgerald') {
             app.push("latest")
         }
     }
@@ -24,7 +24,6 @@ node {
         ansiColor('xterm') {
             ansiblePlaybook(
                 playbook: 'CI/ansible-deploy.yaml',
-                credentialsId: 'jenkins-priv-key',
                 colorized: true,
                 extraVars   : [
                      ansible_python_interpreter: "/usr/bin/python3"

@@ -4,14 +4,19 @@
     - name: Pull the new image
       docker_image:
         name: connorfitzgerald/savings-pot-api:latest
-    - name: Recreate the Docker service
-      docker_swarm_service:
+    - name: Re-create the Savings Pot API container
+      docker_container:
         name: savings-pot-api
         image: connorfitzgerald/savings-pot-api:latest
         state: present
-        force_update: true
+        recreate: yes
+        restart_policy: unless-stopped
+        published_ports:
+          - 3000:3000
         env:
-          - "API_PORT=3000"
-        publish:
-          - published_port: 3000
-            target_port: 3000
+          - API_PORT: {{ sp_api_port }}
+          - DB_NAME: {{ sp_db_name }}
+          - DB_PASSWORD: {{ sp_db_password }}
+          - DB_USER: {{ sp_db_user }}
+          - DB_HOST: {{ sp_db_host }}
+          - DB_PORT: {{ sp_db_port }}
