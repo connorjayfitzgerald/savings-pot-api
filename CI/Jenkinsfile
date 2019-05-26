@@ -24,10 +24,7 @@ node {
         ansiColor('xterm') {
             ansiblePlaybook(
                 playbook: 'CI/ansible-deploy.yaml',
-                colorized: true,
-                extraVars   : [
-                     ansible_python_interpreter: "/usr/bin/python3"
-                ]
+                colorized: true
             )
         }
     }
