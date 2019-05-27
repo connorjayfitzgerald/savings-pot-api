@@ -3,9 +3,10 @@ FROM node:10.15.3
 WORKDIR /tmp/build
 COPY *.json ./
 # Install dependencies
-RUN npm install && npm install -g typescript
+RUN npm install
 COPY src src
-RUN tsc
+# Definition is invalid
+RUN npm run build && rm node_modules/express-rate-limit/index.d.ts
 
 # Run Stage
 FROM node:10.15.3 

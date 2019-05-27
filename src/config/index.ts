@@ -50,7 +50,7 @@ if ((URL_BACKEND && URL_BACKEND.endsWith('/')) || (URL_FRONTEND && URL_FRONTEND.
     throw new Error('FRONTEND and BACKEND URLs must not end with /');
 }
 
-const limiter = rateLimit({
+const limiter = new rateLimit({
     windowMs: AUTH_LIMIT_SECS ? parseInt(AUTH_LIMIT_SECS) * 1000 : 15 * 60 * 1000, // 15 minutes
     max: AUTH_LIMIT_MAX ? parseInt(AUTH_LIMIT_MAX) : 10, // limit each IP to 100 requests per windowMs
 });
