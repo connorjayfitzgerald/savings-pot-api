@@ -8,11 +8,12 @@
       docker_container:
         name: savings-pot-api
         image: connorfitzgerald/savings-pot-api:latest
-        state: present
+        state: started
         recreate: yes
         restart_policy: unless-stopped
         published_ports:
           - 3000:3000
+        purge_networks: yes
         networks:
           - name: savings_pot_net
         env:
