@@ -6,7 +6,7 @@ COPY *.json ./
 RUN npm install
 COPY src src
 # Definition is invalid
-RUN npm run build && rm node_modules/express-rate-limit/index.d.ts
+RUN rm node_modules/express-rate-limit/index.d.ts && tsc
 
 # Run Stage
 FROM node:10.15.3 
