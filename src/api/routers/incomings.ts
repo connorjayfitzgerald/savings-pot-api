@@ -6,7 +6,7 @@ import { body } from 'express-validator/check';
 // ------------------------------ CUSTOM MODULES ------------------------------
 
 import { checkValidation } from '../../utils';
-import { createIncoming } from '../../core/incomings';
+import { createIncoming, getIncomings, getTotal } from '../../core/incomings';
 
 // -------------------------------- VARIABLES ---------------------------------
 
@@ -30,6 +30,24 @@ export const incomingsRouter = (app: Express): Express => {
             const incoming = await createIncoming(req.userId, req.body);
 
             return res.status(201).send({ data: incoming });
+        },
+    );
+
+    router.get(
+        '/',
+        async (req: Request, res: Response): Promise<Response> => {
+            const incomings = await getIncomings(req.userId);
+
+            return res.status(200).send({ data: incomings });
+        },
+    );
+
+    router.get(
+        '/total',
+        async (req: Request, res: Response): Promise<Response> => {
+            const total = await getTotal(req.userId);
+
+            return res.status(200).send({ data: total });
         },
     );
 

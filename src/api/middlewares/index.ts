@@ -17,6 +17,7 @@ export const logRequest = (req: Request, res: Response, next: NextFunction): voi
         {
             path: req.path,
             host: req.hostname,
+            method: req.method,
         },
         'Request received',
     );
@@ -37,6 +38,10 @@ export const verifyJwt = (req: Request, res: Response, next: NextFunction): Resp
             return next();
         } catch (err) {
             logger.debug('Invalid authorization token');
+
+            if (req.method === 'GET') {
+                return res.redirect(appConfig.urls.frontend);
+            }
         }
     }
 
