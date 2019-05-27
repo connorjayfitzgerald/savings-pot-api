@@ -2,11 +2,17 @@
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
-import * as users from './users';
-import * as sessions from './sessions';
-
 // -------------------------------- VARIABLES ---------------------------------
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
-export { users, sessions };
+export {};
+
+declare global {
+    namespace Express {
+        interface Request {
+            userId: number;
+            username: string;
+        }
+    }
+}

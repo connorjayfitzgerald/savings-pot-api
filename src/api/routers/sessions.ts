@@ -5,11 +5,13 @@ import { body } from 'express-validator/check';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
+import { appConfig } from '../../config';
+import { sessions } from '../../core';
 import { handleError, checkValidation } from '../../utils';
 
 // -------------------------------- VARIABLES ---------------------------------
 
-const base = '/users';
+const base = '/sessions';
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
@@ -17,6 +19,7 @@ export const sessionsRouter = (app: Express): Express => {
     const router = Router();
 
     app.use(base, router);
+    app.use(appConfig.auth.limiter);
 
     router.post(
         '/',
@@ -26,12 +29,19 @@ export const sessionsRouter = (app: Express): Express => {
         ],
         checkValidation,
         async (req: Request, res: Response): Promise<Response> => {
-            // const { username, password } = req.body;
+            const { username, password } = req.body;
 
             try {
-                // const loginResult = await auth.login(username, password);
+                const session = await sessions.createSession(username, password);
 
-                return res.status(501).send();
+                res.set({
+                    'Cache-Control': 'no-store',
+                    Pragma: 'no-cache',
+                });
+
+                res.cookie('jwt', session.token, { secure: true, httpOnly: true, expires: new Date(session.expiry) });
+
+                return res.status(201).send();
             } catch (err) {
                 return handleError(err, res);
             }

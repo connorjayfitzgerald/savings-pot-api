@@ -18,8 +18,18 @@
           - name: savings_pot_net
         env:
           API_PORT: "{{ sp_api_port | int }}"
+          DB_ENABLE_LOG: "{{ sp_db_enable_log }}"
           DB_NAME: "{{ sp_db_name }}"
           DB_PASSWORD: "{{ sp_db_password }}"
           DB_USER: "{{ sp_db_user }}"
           DB_HOST: "{{ sp_db_host }}"
           DB_PORT: "{{ sp_db_port | int }}"
+          DB_RECREATE: "{{ sp_db_recreate }}"
+          AUTH_EXPIRY: "{{ sp_auth_expiry | int }}"
+          AUTH_KEY: "{{ sp_auth_key }}"
+          AUTH_LIMIT_MAX: "{{ sp_auth_limit_max | int }}"
+          AUTH_LIMIT_SECS: "{{ sp_auth_limit_secs }}"
+          LOG_LEVEL: "{{ sp_log_level }}"
+          LOG_PRETTY: "{{ sp_log_pretty }}"
+          URL_BACKEND: "{{ sp_url_backend }}"
+          URL_FRONTEND: "{{ sp_url_frontend }}"

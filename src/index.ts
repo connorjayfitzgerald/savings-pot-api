@@ -1,14 +1,11 @@
 // ------------------------------- NODE MODULES -------------------------------
 
-import express from 'express';
-import bodyParser from 'body-parser';
-
 // ------------------------------ CUSTOM MODULES ------------------------------
 
 import { logger } from './utils';
-import { loadRouters } from './api/routers';
-import { appConfig } from './config';
-import { sequelize } from './models';
+import { appConfig, dbConfig } from './config';
+import { sequelize, initialiseData } from './models';
+import { app } from './api';
 
 // -------------------------------- VARIABLES ---------------------------------
 
@@ -18,13 +15,13 @@ const { port } = appConfig;
 
 const run = async (): Promise<void> => {
     try {
-        await sequelize.sync();
+        if (dbConfig.options.recreate) {
+            await sequelize.sync({ force: true });
 
-        const app = express();
-
-        app.use(bodyParser.json());
-
-        loadRouters(app);
+            await initialiseData();
+        } else {
+            await sequelize.sync();
+        }
 
         app.listen(port, (): void => logger.info(`API listening on port ${port}`));
     } catch (err) {

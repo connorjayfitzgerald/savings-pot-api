@@ -43,6 +43,7 @@ export const User = (sequelize: Sequelize): User => {
             username: {
                 type: STRING,
                 allowNull: false,
+                unique: true,
             },
             password: {
                 type: STRING,
@@ -51,12 +52,24 @@ export const User = (sequelize: Sequelize): User => {
             email: {
                 type: STRING,
                 allowNull: false,
+                unique: true,
+            },
+            lastLogin: {
+                type: DATE,
+                allowNull: true,
             },
         },
         {
             defaultScope: {
                 attributes: {
                     exclude: ['password'], // Hide password
+                },
+            },
+            scopes: {
+                includePassword: {
+                    attributes: {
+                        include: ['password'],
+                    },
                 },
             },
         },

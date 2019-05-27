@@ -1,6 +1,7 @@
 // ------------------------------- NODE MODULES -------------------------------
 
-import { Op } from 'sequelize';
+import sequelize, { Op } from 'sequelize';
+import { hash } from 'bcrypt';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
@@ -8,6 +9,8 @@ import { logger, MultipleErrors } from '../utils';
 import { UserModel } from '../models';
 
 // -------------------------------- VARIABLES ---------------------------------
+sequelize.fn;
+const saltRounds = 12;
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
@@ -29,18 +32,24 @@ interface RegisterResponse {
 }
 
 export const register = async (params: RegisterRequest): Promise<RegisterResponse> => {
-    const loggAttrs = { username: params.username, email: params.email };
+    const logAttrs = { username: params.username, email: params.email };
 
-    logger.info(loggAttrs, 'Attempting to register user');
+    logger.info(logAttrs, 'Attempting to register user');
+
+    const uppercaseUsername = params.username.toUpperCase();
+    const uppercaseEmail = params.email.toUpperCase();
 
     const existingUsers = await UserModel.findAll({
         where: {
-            [Op.or]: [{ username: params.username, email: params.email }],
+            [Op.or]: [
+                sequelize.where(sequelize.fn('upper', sequelize.col('username')), uppercaseUsername),
+                sequelize.where(sequelize.fn('upper', sequelize.col('email')), uppercaseEmail),
+            ],
         },
     });
 
-    const duplicateUsername = existingUsers.find((user): boolean => user.username === params.username);
-    const duplicateEmail = existingUsers.find((user): boolean => user.email === params.email);
+    const duplicateUsername = existingUsers.find((user): boolean => user.username.toUpperCase() === uppercaseUsername);
+    const duplicateEmail = existingUsers.find((user): boolean => user.email.toUpperCase() === uppercaseEmail);
 
     const errors = [];
 
@@ -56,11 +65,14 @@ export const register = async (params: RegisterRequest): Promise<RegisterRespons
         throw new MultipleErrors(errors, 409);
     }
 
+    params.password = await hash(params.password, saltRounds);
+
     const newUser = await UserModel.create(params);
 
-    logger.debug(loggAttrs, 'Successfully registered user');
+    logger.debug(logAttrs, 'Successfully registered user');
 
     const response = {
+        id: newUser.id,
         forename: newUser.forename,
         surname: newUser.surname,
         username: newUser.username,

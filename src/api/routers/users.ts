@@ -5,6 +5,7 @@ import { body } from 'express-validator/check';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
+import { appConfig } from '../../config';
 import { handleError, checkValidation } from '../../utils';
 import { users } from '../../core';
 
@@ -18,13 +19,20 @@ export const usersRouter = (app: Express): Express => {
     const router = Router();
 
     app.use(base, router);
+    app.use(appConfig.auth.limiter);
 
     router.post(
         '/',
         [
             body('forename', 'forename must be provided').isAlpha(),
             body('surname', 'surname must be provided').isAlpha(),
-            body('dateOfBirth', 'dateOfBirth must be provided in ISO8601 format').isISO8601(),
+            body('dateOfBirth')
+                .isISO8601()
+                .withMessage('dateOfBirth must be provided in ISO8601 format')
+                .isBefore(new Date().toString())
+                .withMessage("dateOfBirth must be prior to today's date")
+                .isAfter(new Date('1900-01-01').toString())
+                .withMessage('dateOfBirth must not be prior to 1900'),
             body('username')
                 .isLength({ min: 8 })
                 .withMessage('username must be at least 8 characters'),
@@ -51,7 +59,7 @@ export const usersRouter = (app: Express): Express => {
                     email,
                 });
 
-                return res.status(200).send({ data: registerResult });
+                return res.status(201).send({ data: registerResult });
             } catch (err) {
                 return handleError(err, res);
             }
