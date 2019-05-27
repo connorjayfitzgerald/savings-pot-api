@@ -37,13 +37,13 @@ export const verifyJwt = (req: Request, res: Response, next: NextFunction): Resp
 
             return next();
         } catch (err) {
-            logger.debug('Invalid authorization token');
-
-            if (req.method === 'GET') {
-                return res.redirect(appConfig.urls.frontend);
-            }
+            return handleError(new CustomError('Invalid authorization token', 401), res);
         }
     }
 
-    return handleError(new CustomError('Invalid authorization token', 401), res);
+    if (req.method === 'GET') {
+        return res.redirect(appConfig.urls.frontend);
+    }
+
+    return handleError(new CustomError('No authorization token provided', 400), res);
 };
