@@ -28,7 +28,7 @@
           AUTH_EXPIRY: "{{ sp_auth_expiry | int }}"
           AUTH_KEY: "{{ sp_auth_key }}"
           AUTH_LIMIT_MAX: "{{ sp_auth_limit_max | int }}"
-          AUTH_LIMIT_SECS: "{{ sp_auth_limit_secs }}"
+          AUTH_LIMIT_SECS: "{{ sp_auth_limit_secs | int }}"
           LOG_LEVEL: "{{ sp_log_level }}"
           LOG_PRETTY: "{{ sp_log_pretty }}"
           URL_BACKEND: "{{ sp_url_backend }}"
