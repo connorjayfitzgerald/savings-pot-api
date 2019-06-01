@@ -15,6 +15,10 @@ node {
     }
 
     stage('Push') {
+        withCredentials([usernamePassword(credentialsId: 'docker-connorfitzgerald', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            sh 'docker login -u $USER -p $PASS'
+        }
+
         sh 'docker push connorfitzgerald/savings-pot-api:latest'
     }
 
