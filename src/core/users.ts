@@ -14,7 +14,7 @@ const saltRounds = 12;
 
 // ----------------------------- FILE DEFINITION ------------------------------
 
-interface RegisterRequest {
+export interface RegisterRequest {
     forename: string;
     surname: string;
     username: string;
@@ -23,7 +23,7 @@ interface RegisterRequest {
     password: string;
 }
 
-interface RegisterResponse {
+export interface RegisterResponse {
     forename: string;
     surname: string;
     username: string;

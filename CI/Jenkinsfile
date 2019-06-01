@@ -1,23 +1,21 @@
 node {
     def app
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
+    stage('Clone repository') 
         checkout scm
     }
 
     stage('Build') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+        sh 'docker build --target builder -t connorfitzgerald/savings-pot-api:test .'
+        sh 'docker build --target runner -t connorfitzgerald/savings-pot-api:latest .'
+    }
 
-        app = docker.build("connorfitzgerald/savings-pot-api")
+    stage('Test') {
+        sh 'docker container run --rm connorfitzgerald/savings-pot-api:test npm test'
     }
 
     stage('Push') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-connorfitzgerald') {
-            app.push("latest")
-        }
+        sh 'docker push connorfitzgerald/savings-pot-api:latest'
     }
 
     stage('Deploy') {

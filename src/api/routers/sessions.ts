@@ -19,10 +19,10 @@ export const sessionsRouter = (app: Express): Express => {
     const router = Router();
 
     app.use(base, router);
-    app.use(appConfig.auth.limiter);
 
     router.post(
         '/',
+        appConfig.auth.limiter,
         [
             body('username', 'username must be provided').exists(),
             body('password', 'password must be provided').exists(),

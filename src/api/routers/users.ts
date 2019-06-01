@@ -19,10 +19,10 @@ export const usersRouter = (app: Express): Express => {
     const router = Router();
 
     app.use(base, router);
-    app.use(appConfig.auth.limiter);
 
     router.post(
         '/',
+        appConfig.auth.limiter,
         [
             body('forename', 'forename must be provided').isAlpha(),
             body('surname', 'surname must be provided').isAlpha(),

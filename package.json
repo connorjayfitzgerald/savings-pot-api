@@ -4,8 +4,7 @@
   "description": "API for the Savings Pot application",
   "main": "src/index.ts",
   "scripts": {
-    "preinstall": "npm install -g nodemon typescript eslint pino-pretty",
-    "build": "npm run clean && tsc",
+    "build": "tsc",
     "clean": "rimraf dist",
     "dev": "nodemon",
     "lint": "eslint src/**/*.ts --fix",
@@ -41,6 +40,7 @@
     "@types/jsonwebtoken": "^8.3.2",
     "@types/pino": "^5.8.7",
     "@types/sequelize": "^4.28.1",
+    "@types/supertest": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.16.0",
@@ -50,6 +50,7 @@
     "nodemon": "^1.19.0",
     "prettier": "^1.17.1",
     "rimraf": "^2.6.3",
+    "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
   }
