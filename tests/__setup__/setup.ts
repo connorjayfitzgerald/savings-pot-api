@@ -13,6 +13,7 @@ process.env = {
     DB_NAME: 'FAKE',
     DB_PASSWORD: 'FAKE',
     DB_USER: 'FAKE',
+    LOG_LEVEL: 'fatal',
     URL_BACKEND: 'FAKE',
     URL_FRONTEND: 'FAKE',
 };

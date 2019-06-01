@@ -47,7 +47,7 @@ test('Missing values on register throws 400', async (): Promise<void> => {
                 request(app)
                     .post('/users')
                     .send(input)
-                    .expect(401),
+                    .expect(400),
             ),
     );
 
