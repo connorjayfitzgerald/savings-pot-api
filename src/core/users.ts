@@ -5,14 +5,20 @@ import { hash } from 'bcrypt';
 
 // ------------------------------ CUSTOM MODULES ------------------------------
 
-import { logger, MultipleErrors } from '../utils';
+import { logger, MultipleErrors, CustomError } from '../utils';
 import { UserModel } from '../models';
 
 // -------------------------------- VARIABLES ---------------------------------
+
 sequelize.fn;
 const saltRounds = 12;
 
 // ----------------------------- FILE DEFINITION ------------------------------
+
+export const usersErrors = {
+    emailTaken: new CustomError('That email address is already in use', 409),
+    usernameTaken: new CustomError('That username is already taken', 409),
+};
 
 export interface RegisterRequest {
     forename: string;
@@ -54,11 +60,11 @@ export const register = async (params: RegisterRequest): Promise<RegisterRespons
     const errors = [];
 
     if (duplicateUsername) {
-        errors.push(new Error('That username is already taken'));
+        errors.push(usersErrors.usernameTaken);
     }
 
     if (duplicateEmail) {
-        errors.push(new Error('That email address is already in use'));
+        errors.push(usersErrors.emailTaken);
     }
 
     if (errors.length > 0) {
